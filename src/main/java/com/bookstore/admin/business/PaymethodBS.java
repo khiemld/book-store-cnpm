@@ -1,8 +1,7 @@
 package com.bookstore.admin.business;
 
 import com.bookstore.dao.PaymentDAO;
-import com.bookstore.entity.PayMethod;
-
+import  com.bookstore.entity.*;
 import java.util.List;
 
 public class PaymethodBS {

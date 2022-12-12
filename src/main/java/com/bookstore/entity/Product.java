@@ -4,14 +4,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "product", schema = "comicstore")
 public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
     private int id;
     @Basic
-    @Column(name = "idCategory", nullable = true)
-    private Integer idCategory;
+    @Column(name = "idCategory", nullable = false)
+    private int idCategory;
     @Basic
     @Column(name = "name", nullable = false, length = 200)
     private String name;
@@ -43,7 +44,25 @@ public class Product {
     @JoinColumn(name = "idCategory", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private Category category;
 
+    public Product() {
+    }
 
+    ;
+
+    public Product(int id, Integer idCategory, String name, String image, int originalPrice, int salePrice, String discription, int quantity, boolean active, List<CartItem> cartItems, List<OrderItem> orderitems, Category category) {
+        this.id = id;
+        this.idCategory = idCategory;
+        this.name = name;
+        this.image = image;
+        this.originalPrice = originalPrice;
+        this.salePrice = salePrice;
+        this.discription = discription;
+        this.quantity = quantity;
+        this.active = active;
+        this.cartItems = cartItems;
+        this.orderitems = orderitems;
+        this.category = category;
+    }
 
     public int getId() {
         return id;
@@ -53,11 +72,11 @@ public class Product {
         this.id = id;
     }
 
-    public Integer getIdCategory() {
+    public int getIdCategory() {
         return idCategory;
     }
 
-    public void setIdCategory(Integer idCategory) {
+    public void setIdCategory(int idCategory) {
         this.idCategory = idCategory;
     }
 
@@ -117,23 +136,6 @@ public class Product {
         this.active = active;
     }
 
-    public Product(){};
-
-    public Product(int id, Integer idCategory, String name, String image, int originalPrice, int salePrice, String discription, int quantity, boolean active, List<CartItem> cartItems, List<OrderItem> orderitems, Category category) {
-        this.id = id;
-        this.idCategory = idCategory;
-        this.name = name;
-        this.image = image;
-        this.originalPrice = originalPrice;
-        this.salePrice = salePrice;
-        this.discription = discription;
-        this.quantity = quantity;
-        this.active = active;
-        this.cartItems = cartItems;
-        this.orderitems = orderitems;
-        this.category = category;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -142,11 +144,11 @@ public class Product {
         Product product = (Product) o;
 
         if (id != product.id) return false;
+        if (idCategory != product.idCategory) return false;
         if (originalPrice != product.originalPrice) return false;
         if (salePrice != product.salePrice) return false;
         if (quantity != product.quantity) return false;
         if (active != product.active) return false;
-        if (idCategory != null ? !idCategory.equals(product.idCategory) : product.idCategory != null) return false;
         if (name != null ? !name.equals(product.name) : product.name != null) return false;
         if (image != null ? !image.equals(product.image) : product.image != null) return false;
         if (discription != null ? !discription.equals(product.discription) : product.discription != null) return false;
@@ -157,7 +159,7 @@ public class Product {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (idCategory != null ? idCategory.hashCode() : 0);
+        result = 31 * result + idCategory;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (image != null ? image.hashCode() : 0);
         result = 31 * result + originalPrice;
@@ -188,7 +190,9 @@ public class Product {
         return category;
     }
 
-    public void setCategory(Category categoryById) {
-        this.category = categoryById;
+    public void setCategory(Category category) {
+        this.category = category;
     }
+
+
 }

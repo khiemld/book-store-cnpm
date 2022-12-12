@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CustomerBS {
     public static List<User> getAll() {
-        List<User> customers = UserDAO.findByRole(3); // 3 - customer
+        List<User> customers = UserDAO.findByRole(3);
         return customers;
     }
 

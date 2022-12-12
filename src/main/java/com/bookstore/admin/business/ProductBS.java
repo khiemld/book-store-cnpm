@@ -3,9 +3,7 @@ package com.bookstore.admin.business;
 import com.bookstore.dao.OrderDAO;
 import com.bookstore.dao.OrderItemDAO;
 import com.bookstore.dao.ProductDAO;
-import com.bookstore.entity.Order;
-import com.bookstore.entity.OrderItem;
-import com.bookstore.entity.Product;
+import  com.bookstore.entity.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

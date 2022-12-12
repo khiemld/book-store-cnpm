@@ -5,9 +5,7 @@ import com.bookstore.admin.business.EmployeeBS;
 import com.bookstore.admin.business.ProductBS;
 import com.bookstore.dao.OrderDAO;
 import com.bookstore.dao.ProductDAO;
-import com.bookstore.entity.Order;
-import com.bookstore.entity.Product;
-import com.bookstore.entity.User;
+import  com.bookstore.entity.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

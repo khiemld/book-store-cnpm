@@ -3,6 +3,7 @@ package com.bookstore.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "cartitem", schema = "comicstore")
 public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -80,22 +81,6 @@ public class CartItem {
         this.price = price;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -122,5 +107,19 @@ public class CartItem {
         return result;
     }
 
+    public Product getProduct() {
+        return product;
+    }
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

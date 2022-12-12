@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "`order`", schema = "bookstore")
+@Table(name = "`order`", schema = "comicstore")
 public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -44,7 +44,6 @@ public class Order {
     @Basic
     @Column(name = "status", nullable = false)
     private int status;
-
     public Order(){}
 
     public Order(int idUser, String phone, String address, String contactName, int idMethod, int idDelivery, int status) {
@@ -71,14 +70,6 @@ public class Order {
     @ManyToOne
     @JoinColumn(name="idUser", referencedColumnName = "id", nullable = false,insertable = false, updatable = false)
     private User user;
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
 
     public int getId() {
         return id;
@@ -181,20 +172,20 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Order that = (Order) o;
+        Order order = (Order) o;
 
-        if (id != that.id) return false;
-        if (idUser != that.idUser) return false;
-        if (idMethod != that.idMethod) return false;
-        if (idDelivery != that.idDelivery) return false;
-        if (totalPay != that.totalPay) return false;
-        if (status != that.status) return false;
-        if (idSeller != null ? !idSeller.equals(that.idSeller) : that.idSeller != null) return false;
-        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
-        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (contactName != null ? !contactName.equals(that.contactName) : that.contactName != null) return false;
-        if (receiveDate != null ? !receiveDate.equals(that.receiveDate) : that.receiveDate != null) return false;
+        if (id != order.id) return false;
+        if (idUser != order.idUser) return false;
+        if (idMethod != order.idMethod) return false;
+        if (idDelivery != order.idDelivery) return false;
+        if (totalPay != order.totalPay) return false;
+        if (status != order.status) return false;
+        if (idSeller != null ? !idSeller.equals(order.idSeller) : order.idSeller != null) return false;
+        if (createTime != null ? !createTime.equals(order.createTime) : order.createTime != null) return false;
+        if (phone != null ? !phone.equals(order.phone) : order.phone != null) return false;
+        if (address != null ? !address.equals(order.address) : order.address != null) return false;
+        if (contactName != null ? !contactName.equals(order.contactName) : order.contactName != null) return false;
+        if (receiveDate != null ? !receiveDate.equals(order.receiveDate) : order.receiveDate != null) return false;
 
         return true;
     }
@@ -215,4 +206,38 @@ public class Order {
         result = 31 * result + status;
         return result;
     }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public PayMethod getPayMethod() {
+        return payMethod;
+    }
+
+    public void setPayMethod(PayMethod payMethod) {
+        this.payMethod = payMethod;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }

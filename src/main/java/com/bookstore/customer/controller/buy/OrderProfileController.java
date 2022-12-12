@@ -1,10 +1,7 @@
 package com.bookstore.customer.controller.buy;
 
 
-
-import com.bookstore.dao.*;
-
-
+import com.bookstore.dao.OrderDAO;
 import com.bookstore.entity.Order;
 
 import javax.servlet.ServletException;

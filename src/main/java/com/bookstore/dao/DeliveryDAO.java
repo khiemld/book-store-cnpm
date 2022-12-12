@@ -115,7 +115,7 @@ public class DeliveryDAO {
         List<Delivery> deliveries = null;
         try {
             // Create query string
-            String queryString = "from Delivery where name like :name";
+            String queryString = "Select d from Delivery d where d.name like :name";
 
             // Create query
             Query query = session.createQuery(queryString, Delivery.class);

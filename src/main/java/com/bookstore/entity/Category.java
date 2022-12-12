@@ -3,6 +3,7 @@ package com.bookstore.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "category", schema = "comicstore")
 public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -47,4 +48,6 @@ public class Category {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
+
+
 }

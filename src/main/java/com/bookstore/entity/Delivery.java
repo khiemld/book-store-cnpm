@@ -3,6 +3,7 @@ package com.bookstore.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "delivery", schema = "comicstore")
 public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -14,6 +15,13 @@ public class Delivery {
     @Basic
     @Column(name = "shipFee", nullable = false)
     private int shipFee;
+
+    public Delivery(){ }
+
+    public Delivery(String name, int shipFee) {
+        this.name = name;
+        this.shipFee = shipFee;
+    }
 
     public int getId() {
         return id;
@@ -39,13 +47,6 @@ public class Delivery {
         this.shipFee = shipFee;
     }
 
-    public Delivery(){ }
-
-    public Delivery(String name, int shipFee) {
-        this.name = name;
-        this.shipFee = shipFee;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,4 +68,6 @@ public class Delivery {
         result = 31 * result + shipFee;
         return result;
     }
+
+
 }

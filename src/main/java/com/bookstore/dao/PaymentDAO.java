@@ -105,7 +105,7 @@ public class PaymentDAO {
         List<PayMethod> paymethods = null;
         try {
             // Create query string
-            String queryString = "from PayMethod where name like :name";
+            String queryString = "select p from PayMethod p where p.name like :name";
 
             // Create query
             Query query = session.createQuery(queryString, PayMethod.class);

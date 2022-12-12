@@ -1,14 +1,15 @@
 package com.bookstore.customer.controller.buy;
 
-import com.bookstore.dao.*;
+import com.bookstore.dao.CartItemDAO;
+import com.bookstore.dao.ProductDAO;
 import com.bookstore.entity.CartItem;
 
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 
 @WebServlet(name = "AddCardControl", value = "/cart")
 public class AddCartController extends HttpServlet {

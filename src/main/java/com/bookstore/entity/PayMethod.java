@@ -1,9 +1,9 @@
 package com.bookstore.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
+@Table(name = "paymethod", schema = "comicstore")
 public class PayMethod {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -12,7 +12,8 @@ public class PayMethod {
     @Basic
     @Column(name = "name", nullable = false, length = 200)
     private String name;
-
+/*    @OneToMany(mappedBy = "paymethodByIdMethod")
+    private Collection<Order> ordersById;*/
 
     public int getId() {
         return id;
@@ -27,12 +28,6 @@ public class PayMethod {
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
-
-    public PayMethod(){ }
-
-    public PayMethod(String name) {
         this.name = name;
     }
 
@@ -55,5 +50,8 @@ public class PayMethod {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
+
+
+
 
 }

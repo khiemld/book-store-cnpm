@@ -1,10 +1,10 @@
 package com.bookstore.entity;
 
 import javax.persistence.*;
-
 import java.util.List;
 
 @Entity
+@Table(name = "user", schema = "comicstore")
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -143,7 +143,7 @@ public class User {
         return true;
     }
 
-  /*  @Override
+    @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
@@ -155,7 +155,7 @@ public class User {
         result = 31 * result + isRole;
         result = 31 * result + (active ? 1 : 0);
         return result;
-    }*/
+    }
 
     public List<CartItem> getCartItems() {
         return cartItems;
@@ -172,4 +172,6 @@ public class User {
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
+
 }

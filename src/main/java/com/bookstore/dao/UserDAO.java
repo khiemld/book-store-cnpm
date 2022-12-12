@@ -77,7 +77,7 @@ public class UserDAO {
         List<User> users = null;
         try {
             // Create query string
-            String queryString = "from User where email like :email and active=true";
+            String queryString = "select u from User u where u.email like :email and u.active=true";
 
             // Create query
             Query query = session.createQuery(queryString, User.class);
@@ -236,7 +236,7 @@ public class UserDAO {
         List<User> users = null;
         try {
             // Create query string
-            String queryString = "from User where isRole = :role and active = true";
+            String queryString = "Select u from User u where u.isRole = :role and u.active = true";
 
             // Create query
             Query query = session.createQuery(queryString, User.class);
@@ -258,7 +258,7 @@ public class UserDAO {
         List<User> users = null;
         try {
             // Create query string
-            String queryString = "from User where phone like :phone and active=true";
+            String queryString = "Select u from User u where u.phone like :phone and u.active=true";
 
             // Create query
             Query query = session.createQuery(queryString, User.class);

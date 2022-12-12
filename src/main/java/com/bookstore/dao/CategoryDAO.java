@@ -75,8 +75,7 @@ public class CategoryDAO {
         List<Category> categories = null;
         try {
             // Create query string
-            String queryString = "from Category where name like :name";
-
+            String queryString = "select  c from Category c where c.name like :name";
             // Create query
             Query query = session.createQuery(queryString, Category.class);
             query.setParameter("name", "%" + name + "%");

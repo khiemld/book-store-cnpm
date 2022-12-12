@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 public class OrderBS {
     public static List<OrderStatusBS> statusList() {
         List<OrderStatusBS> statuses = new ArrayList<>();
