@@ -234,6 +234,28 @@ public class ProductDAO {
         }
         return books;
     }
+
+    public static List<Product> searchBynameandId(String name, int id) {
+        // open session
+        Session session = HibernateUtility.getSessionFactory().openSession();
+        List<Product> books = null;
+        try {
+            // Create query string
+            String queryString = "select  p from Product p where p.name like :name and p.id not like :id and p.active=true";
+
+            // Create query
+            Query query = session.createQuery(queryString, Product.class);
+            query.setParameter("name", "%" + name + "%");
+            query.setParameter("id", id);
+            // Return result List
+            books = query.list();
+        } catch (HibernateError error) {
+            System.err.println(error);
+        } finally {
+            session.close();
+        }
+        return books;
+    }
 }
 
 

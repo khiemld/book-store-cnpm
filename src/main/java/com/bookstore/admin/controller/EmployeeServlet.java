@@ -165,7 +165,7 @@ public class EmployeeServlet extends HttpServlet {
 //                    Nếu email đã tồn tại
                     else if (!"OK".equals(EmployeeBS.CheckEmailAvailable(user))) {
                         request.setAttribute("employee", user);
-                        request.setAttribute("message", EmployeeBS.CheckPhoneAvailable(user));
+                        request.setAttribute("message", EmployeeBS.CheckEmailAvailable(user));
                         request.getRequestDispatcher("/admin/employee-form.jsp").forward(request, response);
                     }
 //                  Nếu email và điện thoại là mới
@@ -180,12 +180,22 @@ public class EmployeeServlet extends HttpServlet {
                 }
 //                Đang cập nhật sách
                 else {
-                    UserDAO.update(user);
-                    String message = new String("Vừa cập nhật nhân viên <b>" + user.getName() + "</b>");
-                    request.setAttribute("message", message);
-                    List<User> employeeList = EmployeeBS.getAll();
-                    request.setAttribute("employeeList", employeeList);
-                    request.getRequestDispatcher("/admin/employee.jsp").forward(request, response);
+                    if(!"OK".equals(EmployeeBS.CheckEmailUpdateAvailable(user))) {
+                        request.setAttribute("employee", user);
+                        request.setAttribute("message", EmployeeBS.CheckEmailUpdateAvailable(user));
+                        request.getRequestDispatcher("/admin/employee-form.jsp").forward(request, response);
+                    } else if (!"OK".equals(EmployeeBS.CheckPhoneUpdateAvailable(user))) {
+                        request.setAttribute("employee", user);
+                        request.setAttribute("message", EmployeeBS.CheckPhoneUpdateAvailable(user));
+                        request.getRequestDispatcher("/admin/employee-form.jsp").forward(request, response);
+                    } else {
+                        UserDAO.update(user);
+                        String message = new String("Vừa cập nhật nhân viên <b>" + user.getName() + "</b>");
+                        request.setAttribute("message", message);
+                        List<User> employeeList = EmployeeBS.getAll();
+                        request.setAttribute("employeeList", employeeList);
+                        request.getRequestDispatcher("/admin/employee.jsp").forward(request, response);
+                    }
                 }
             }
         }

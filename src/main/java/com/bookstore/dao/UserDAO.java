@@ -93,6 +93,29 @@ public class UserDAO {
         return users;
     }
 
+    public static List<User> findListUserByEmailandId(String email, int id) {
+        // open session
+        Session session = HibernateUtility.getSessionFactory().openSession();
+        List<User> users = null;
+        try {
+            // Create query string
+            String queryString = "select u from User u where u.email like :email and u.id not like :id and u.active=true";
+
+            // Create query
+            Query query = session.createQuery(queryString, User.class);
+            query.setParameter("email", email);
+            query.setParameter("id", id);
+
+            // Return result List
+            users = query.list();
+        } catch (HibernateError error) {
+            System.err.println(error);
+        } finally {
+            session.close();
+        }
+        return users;
+    }
+
     public static List<User> getAll(){
         // open session
         Session session = HibernateUtility.getSessionFactory().openSession();
@@ -274,6 +297,27 @@ public class UserDAO {
         return users;
     }
 
+    public static List<User> findByPhoneandId(String phone, int id) {
+        // open session
+        Session session = HibernateUtility.getSessionFactory().openSession();
+        List<User> users = null;
+        try {
+            // Create query string
+            String queryString = "Select u from User u where u.phone like :phone and u.id not like :id and u.active=true";
+
+            // Create query
+            Query query = session.createQuery(queryString, User.class);
+            query.setParameter("phone", phone);
+            query.setParameter("id", id);
+            // Return result List
+            users = query.list();
+        } catch (HibernateError error) {
+            System.err.println(error);
+        } finally {
+            session.close();
+        }
+        return users;
+    }
 
 
 }

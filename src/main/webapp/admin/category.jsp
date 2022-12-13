@@ -316,12 +316,13 @@
                     </div><!-- End Customers Card -->--%>
 
                     <!-- Add button -->
+                    <c:if test="${sessionScope.admin.getIsRole() == 1}">
                     <form action="${pageContext.request.contextPath}/admin/category" method="get">
                         <input type="hidden" name="action" value="insert">
                         <input type="submit" class="btn btn-success" value="Add category">
                         <%--<a href="/admin/book?action=insert" class="btn btn-success">Add book</a>--%>
                     </form>
-
+                    </c:if>
                    <%-- <ul class="nav nav-tabs nav-tabs-bordered margin-top-30" id="borderedTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link ${category.id==0?"active":""}" id="home-tab"
