@@ -251,8 +251,10 @@ public class OrderServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
 //      Lấy id của product được truyền xuống nè
         String oID = request.getParameter("orderID");
+        String sellerID = request.getParameter("sellerID");
 //      Lấy product có id tương ứng ra
         Order selectedOrder = OrderDAO.getOrderByIdOrder(Integer.parseInt(oID));
+        selectedOrder.setIdSeller(Integer.parseInt(sellerID));
         selectedOrder.setStatus(2);
         OrderDAO.update(selectedOrder);
         List<Order> orderList = OrderDAO.getAll();

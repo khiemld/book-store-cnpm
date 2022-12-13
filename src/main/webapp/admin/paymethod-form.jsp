@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Trường Giang
-  Date: 03-Dec-22
-  Time: 6:27 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -95,12 +89,12 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img src="${pageContext.request.contextPath}/admin/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.admin.getName()}</span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>Kevin Anderson</h6>
+                        <h6>${sessionScope.admin.getName()}</h6>
                         <span>Web Designer</span>
                     </li>
                     <li>
@@ -138,7 +132,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" href="${pageContext.request.contextPath}/admin/logout">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
                         </a>
@@ -181,10 +175,12 @@
         </li><!-- End Customer Page Nav -->
 
         <li class="nav-item">
+            <c:if test="${sessionScope.admin.getIsRole() == 1}">
             <a class="nav-link collapsed" href="${pageContext.request.contextPath}/admin/employee">
                 <i class="bi bi-emoji-laughing-fill"></i>
                 <span>Employee</span>
             </a>
+            </c:if>
         </li><!-- End Employee Page Nav -->
 
         <li class="nav-item">
@@ -202,7 +198,7 @@
         </li><!-- End Order Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="">
+            <a class="nav-link collapsed" href="${pageContext.request.contextPath}/admin/category">
                 <i class="bi bi-grid-1x2"></i>
                 <span>Category</span>
             </a>

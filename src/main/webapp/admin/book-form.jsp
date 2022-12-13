@@ -95,12 +95,12 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img src="${pageContext.request.contextPath}/admin/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.admin.getName()}</span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>Kevin Anderson</h6>
+                        <h6>${sessionScope.admin.getName()}</h6>
                         <span>Web Designer</span>
                     </li>
                     <li>
@@ -138,7 +138,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" href="${pageContext.request.contextPath}/admin/logout">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
                         </a>
@@ -181,10 +181,12 @@
         </li><!-- End Customer Page Nav -->
 
         <li class="nav-item">
+            <c:if test="${sessionScope.admin.getIsRole() == 1}">
             <a class="nav-link collapsed" href="${pageContext.request.contextPath}/admin/employee">
                 <i class="bi bi-emoji-laughing-fill"></i>
                 <span>Employee</span>
             </a>
+            </c:if>
         </li><!-- End Employee Page Nav -->
 
         <li class="nav-item">
@@ -202,7 +204,7 @@
         </li><!-- End Order Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="">
+            <a class="nav-link collapsed" href="${pageContext.request.contextPath}/admin/category">
                 <i class="bi bi-grid-1x2"></i>
                 <span>Category</span>
             </a>
@@ -359,13 +361,13 @@
 <%-- Script để up ảnh lên trên firebase --%>
 <script type="text/javascript">
     const firebaseConfig = {
-        apiKey: "AIzaSyAkEUZstCnJ5AqGXBqpTefdojdmFJUlg9s",
-        authDomain: "bookstore-group6.firebaseapp.com",
-        projectId: "bookstore-group6",
-        storageBucket: "bookstore-group6.appspot.com",
-        messagingSenderId: "511904505175",
-        appId: "1:511904505175:web:024a0d6a156673f8b87212",
-        measurementId: "G-113KCDWNBN"
+        apiKey: "AIzaSyBiDIcGLezaziWxxz3CXpxNqA8CabPT45s",
+        authDomain: "cnpm-dc842.firebaseapp.com",
+        projectId: "cnpm-dc842",
+        storageBucket: "cnpm-dc842.appspot.com",
+        messagingSenderId: "188113748490",
+        appId: "1:188113748490:web:548750c1b3da2e32cc15f3",
+        measurementId: "G-8HXSTRK0R0"
     };
 
     firebase.initializeApp(firebaseConfig);

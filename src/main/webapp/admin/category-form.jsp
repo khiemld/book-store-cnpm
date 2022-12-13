@@ -1,10 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Trường Giang
-  Date: 03-Dec-22
-  Time: 6:27 PM
+  User: HP
+  Date: 12/12/2022
+  Time: 8:49 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -40,7 +41,7 @@
     <!-- Chỗ này hong biết sao nó hong ăn bên file style.css nên phải để ở đây :>> -->
     <style>
         .img-rectangle {
-            width: 150px;
+            width: 250px;
         }
 
         .recent-sales {
@@ -197,7 +198,7 @@
         </li><!-- End Book Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/admin/order">
+            <a class="nav-link collapsed" href="${pageContext.request.contextPath}/admin/order">
                 <i class="bi bi-receipt-cutoff"></i>
                 <span>Order</span>
             </a>
@@ -211,7 +212,7 @@
         </li><!-- End Category Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="${pageContext.request.contextPath}/admin/paymethod">
+            <a class="nav-link" href="${pageContext.request.contextPath}/admin/paymethod">
                 <i class="bi bi-wallet2"></i>
                 <span>Pay method</span>
             </a>
@@ -229,11 +230,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>${action.equals("edit")?"Chi tiết hóa đơn":"Thêm hóa đơn"}</h1>
+        <h1>Thêm danh mục sản phẩm</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin">Home</a></li>
-                <li class="breadcrumb-item active">Order</li>
+                <li class="breadcrumb-item active">Category</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -251,143 +252,23 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </c:if>
-                    <form action="${pageContext.request.contextPath}/admin/order" method="post">
+                    <form action="${pageContext.request.contextPath}/admin/category" method="post">
                         <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Khách hàng</label>
+                            <label for="inputText" class="col-sm-2 col-form-label">Tên danh mục</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="customerName" value="${customer.name}"
-                                readonly>
+                                <input type="text" class="form-control" name="categoryName" value="${category.name}"
+                                ${action.equals("insert")?"required":"readonly"}>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Nhân viên</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="employeeName" value="${employee.name}"
-                                readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Ngày tạo</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control" name="createDate" value="${order.createTime}"
-                                readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Điện thoại</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="orderName" value="${order.phone}"
-                                readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Địa chỉ</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="orderAddress" value="${order.address}"
-                                readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Người nhận</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="orderContactName" value="${order.contactName}"
-                                readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Ngày nhận (Dự đoán)</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control" name="receiveDate" value="${order.receiveDate}"
-                                readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Phương thức thanh toán</label>
-                            <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example" name="paymethodID" disabled>
-                                    <option value="0">-- Chọn phương thức --</option>
-                                    <c:forEach items="${paymethodList}" var="p">
-                                        <option value="${p.id}" ${p.id==order.idMethod?"selected":""}>${p.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Phương thức vận chuyển</label>
-                            <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example" name="deliveryID" disabled>
-                                    <option value="0">-- Chọn phương thức --</option>
-                                    <c:forEach items="${deliveryList}" var="d">
-                                        <option value="${d.id}" ${d.id==order.idDelivery?"selected":""}>${d.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Tổng tiền</label>
-                            <div class="col-sm-10">
-                                <input type="number" class="form-control" name="orderTotal" value="${order.totalPay}" readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Tình trạng</label>
-                            <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example" name="statusID" disabled>
-                                    <option value="0">-- Chọn tình trạng --</option>
-                                    <c:forEach items="${statusList}" var="s">
-                                        <option value="${s.id}" ${s.id==order.status?"selected":""}>${s.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Chi tiết hóa đơn</label>
-                            <!-- Deatil List -->
-                            <div class="col-sm-10">
-                                <div class="card overflow-auto">
-
-                                    <div class="card-body">
-                                        <h5 class="card-title">Chi tiết hóa đơn</h5>
-
-                                        <table class="table table-borderless datatable">
-                                            <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Sách</th>
-                                                <th scope="col">Hình ảnh</th>
-                                                <th scope="col">Số lượng</th>
-                                                <th scope="col">Thành tiền</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach items="${orderItemList}" var="i">
-                                                <tr>
-                                                    <th scope="row"><a href="#">${i.id}</a></th>
-                                                    <td><a href="">${i.productByIdProduct.name}</a></td>
-                                                    <td><img alt="" class="img-rectangle" src="${i.productByIdProduct.image}"/></td>
-                                                    <td>${i.quantity}</td>
-                                                    <td>${i.price}</td>
-                                                </tr>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-
-                                </div>
-                            </div><!-- End Book List-->
-                        </div>
-
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label"></label>
                             <div class="col-sm-10">
-                                <a href="${pageContext.request.contextPath}/admin/order" class="btn btn-success">OK</a>
-                                <button type="submit" class="btn btn-success" value="add" <%--${action.equals("edit")?"":"hidden"}--%> hidden>Save</button>
+                                <a href="${pageContext.request.contextPath}/admin/category" class="btn ${action.equals("insert")?"btn-danger":"btn-success"}">${action.equals("insert")?"Cancel":"OK"}</a>
+                                <button type="submit" class="btn btn-success" value="add" ${action.equals("insert")?"":"hidden"}>Save</button>
                             </div>
                         </div>
                         <input type="hidden" name="action" value="save">
-                        <input type="hidden" name="oID" value="${order.id}">
+                        <input type="hidden" name="cID" value="${category.id}">
                     </form><!-- End General Form Elements -->
                     <button class="btn btn-primary" id="fileButton" hidden>Upload Image</button>
                 </div>
@@ -418,7 +299,7 @@
 <!-- Vendor JS Files -->
 <script src="${pageContext.request.contextPath}/admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="${pageContext.request.contextPath}/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}"></script>
+<script src="${pageContext.request.contextPath}/admin/assets/vendor/chart.js/chart.min.js"></script>
 <script src="${pageContext.request.contextPath}/admin/assets/vendor/echarts/echarts.min.js"></script>
 <script src="${pageContext.request.contextPath}/admin/assets/vendor/quill/quill.min.js"></script>
 <script src="${pageContext.request.contextPath}/admin/assets/vendor/simple-datatables/simple-datatables.js"></script>

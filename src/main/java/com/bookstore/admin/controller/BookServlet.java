@@ -129,9 +129,10 @@ public class BookServlet extends HttpServlet {
             book.setQuantity(Integer.parseInt(pQuantity));
             book.setIdCategory(Integer.parseInt(pCategoryID));
             book.setImage(pImageLink);
+            book.setActive(true);
 
 //            Kiểm tra dữ liệu đầu vào đang được lưu trong book
-//            Nêu dữ liệu chưa hợp lệ
+//            Nếu dữ liệu chưa hợp lệ
             if (!"OK".equals(ProductBS.CheckInputData(book))) {
                 categoryList = CategoryDAO.getAll();
                 request.setAttribute("book", book);
@@ -184,7 +185,7 @@ public class BookServlet extends HttpServlet {
 //        Thêm tiếng việt
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-//        Lấy id của product được truyền xuống nè
+//        Lấy id của product được truyền xuống
         String pID = request.getParameter("productID");
 //        Lấy product có id tương ứng ra
         Product selectedBook = ProductDAO.getProductByID(Integer.parseInt(pID));
@@ -207,7 +208,7 @@ public class BookServlet extends HttpServlet {
         String message;
         if (selectedBook != null) {
             message = new String("Vừa xóa sách <b>" + selectedBook.getName() + "</b>");
-            selectedBook.setActive(true);
+            selectedBook.setActive(false);
             ProductDAO.update(selectedBook);
         } else {
             message = new String("Sách <b>" + selectedBook.getName() + "</b> hong tồn tại!");

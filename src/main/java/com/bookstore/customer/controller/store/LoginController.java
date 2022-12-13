@@ -76,11 +76,12 @@ public class LoginController extends HttpServlet {
                     request.setAttribute("list4last",  product4Lastest);
                     request.getRequestDispatcher("/store/views/home.jsp").forward(request, response);
                 }
-                else {
+                else{
                     HttpSession session = request.getSession();
                     session.setAttribute("admin", account);
                     response.sendRedirect("admin");
                 }
+
 
             }
             else{

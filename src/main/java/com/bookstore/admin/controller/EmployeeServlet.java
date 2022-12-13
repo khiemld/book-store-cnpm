@@ -141,6 +141,7 @@ public class EmployeeServlet extends HttpServlet {
             user.setPassword(ePassword);
             user.setImage(eImageLink);
             user.setIsRole(2);
+            user.setActive(true);
 
 //            Kiểm tra dữ liệu đầu vào đang được lưu trong book
 //            Nêu dữ liệu chưa hợp lệ
@@ -201,7 +202,7 @@ public class EmployeeServlet extends HttpServlet {
         String message;
         if (selectedUser != null && EmployeeBS.totalOrder(selectedUser) == 0) {
             message = new String("Vừa xóa nhân viên <b>" + selectedUser.getName() + "</b>");
-            selectedUser.setActive(true);
+            selectedUser.setActive(false);
             UserDAO.update(selectedUser);
         } else {
             message = new String("Nhân viên <b>" + selectedUser.getName() + "</b> hong thể xóa do có dữ liệu cần dùng!");

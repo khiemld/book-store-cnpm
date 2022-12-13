@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Trường Giang
-  Date: 03-Dec-22
-  Time: 6:27 PM
+  User: HP
+  Date: 12/12/2022
+  Time: 8:27 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -64,9 +64,6 @@
 
         .margin-top-30 {
             margin-top: 30px;
-        }
-        .full-column-width{
-            width: 100%;
         }
     </style>
 
@@ -185,7 +182,7 @@
 
         <li class="nav-item">
             <c:if test="${sessionScope.admin.getIsRole() == 1}">
-            <a class="nav-link" href="${pageContext.request.contextPath}/admin/employee">
+            <a class="nav-link collapsed" href="${pageContext.request.contextPath}/admin/employee">
                 <i class="bi bi-emoji-laughing-fill"></i>
                 <span>Employee</span>
             </a>
@@ -193,7 +190,7 @@
         </li><!-- End Employee Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="${pageContext.request.contextPath}/admin/book">
+            <a class="nav-link" href="${pageContext.request.contextPath}/admin/book">
                 <i class="bi bi-journal-bookmark-fill"></i>
                 <span>Book</span>
             </a>
@@ -225,7 +222,6 @@
                 <span>Delivery</span>
             </a>
         </li><!-- End Category Page Nav -->
-
     </ul>
 
 </aside><!-- End Sidebar-->
@@ -237,7 +233,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin">Home</a></li>
-                <li class="breadcrumb-item active">Employee</li>
+                <li class="breadcrumb-item active">Book</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -260,14 +256,14 @@
                         <div class="card info-card sales-card">
 
                             <div class="card-body">
-                                <h5 class="card-title">Tổng <span>| Nhân viên</span></h5>
+                                <h5 class="card-title">Tổng <span>| Danh mục</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-cart"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>${employeeList.size()} nhân viên</h6>
+                                        <h6>${categoryList.size()} danh mục</h6>
 
                                     </div>
                                 </div>
@@ -276,92 +272,111 @@
                         </div>
                     </div><!-- End Sales Card -->
 
-                    <!-- Revenue Card -->
+                    <%--<!-- Revenue Card -->
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card revenue-card">
 
                             <div class="card-body">
-                                <h5 class="card-title">Top <span>| Chốt quá chời tiền</span></h5>
+                                <h5 class="card-title">Tổng <span>| Còn lại</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-currency-dollar"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>${BestEmployeeByPrice.name}</h6>
+                                        <h6>${total} quyển</h6>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                    </div><!-- End Revenue Card -->
+                    </div><!-- End Revenue Card -->--%>
 
-                    <!-- Customers Card -->
+                    <%--<!-- Customers Card -->
                     <div class="col-xxl-4 col-xl-12">
 
                         <div class="card info-card customers-card">
 
                             <div class="card-body">
-                                <h5 class="card-title">Top <span>| Chốt nhiều sách nhất</span></h5>
+                                <h5 class="card-title">Tổng <span>| Đã bán</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>${BestEmployeeByBooks.name}</h6>
+                                        <h6>${sell} quyển</h6>
+
                                     </div>
                                 </div>
 
                             </div>
                         </div>
 
-                    </div><!-- End Customers Card -->
+                    </div><!-- End Customers Card -->--%>
 
                     <!-- Add button -->
-                    <form action="${pageContext.request.contextPath}/admin/employee" method="get">
+                    <form action="${pageContext.request.contextPath}/admin/category" method="get">
                         <input type="hidden" name="action" value="insert">
-                        <input type="submit" class="btn btn-success" value="Add employee">
+                        <input type="submit" class="btn btn-success" value="Add category">
                         <%--<a href="/admin/book?action=insert" class="btn btn-success">Add book</a>--%>
                     </form>
+
+                   <%-- <ul class="nav nav-tabs nav-tabs-bordered margin-top-30" id="borderedTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link ${category.id==0?"active":""}" id="home-tab"
+                               type="button" role="tab" aria-controls="home"
+                               aria-selected="true" href="${pageContext.request.contextPath}/admin/book?cID=0">Tất cả
+                            </a>
+                        </li>
+                        <c:forEach items="${categoryList}" var="c">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link ${category.id==c.id?"active":""}" id="profile-tab"
+                                   type="button" role="tab" aria-controls="profile"
+                                   aria-selected="false" tabindex="-1" href="${pageContext.request.contextPath}/admin/book?cID=${c.id}">${c.name}
+                                </a>
+                            </li>
+                        </c:forEach>
+                    </ul>--%>
 
                     <!-- Book List -->
                     <div class="col-12">
                         <div class="card overflow-auto margin-top-30">
 
                             <div class="card-body">
-                                <h5 class="card-title">Nhân viên</h5>
+                                <h5 class="card-title">Danh mục sản phẩm</h5>
 
                                 <table class="table table-borderless datatable">
                                     <thead>
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">Action</th>
+                                        <%--<th scope="col">Original Price</th>
+                                        <th scope="col">Sale Price</th>
+                                        <th scope="col">Describe</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Action</th>--%>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${employeeList}" var="e">
+                                    <c:forEach items="${categoryList}" var="b">
                                         <tr>
-                                            <th scope="row"><a href="#">${e.id}</a></th>
-                                            <td><a href="">${e.name}</a></td>
-                                            <td>${e.address}</td>
-                                            <td>${e.email}</td>
-                                            <%--<td><img alt="" class="img-rectangle" src="${e.image}"/></td>--%>
-                                            <td><span>${e.phone}</span></td>
+                                            <th scope="row"><a href="#">${b.id}</a></th>
+                                            <td><a href="">${b.name}</a></td>
+                                            <%--<td>${b.originalPrice}</td>
+                                            <td>${b.salePrice}</td>
+                                            <td class="desciption-column-witdh"><span>${b.discription}</span></td>
+                                            <td><img alt="" class="img-rectangle" src="${b.image}"/></td>--%>
                                             <td class="action-column">
-                                                <a href="${pageContext.request.contextPath}/admin/employee?action=edit&employeeID=${e.id}"
-                                                   class="btn btn-primary full-column-width">Edit</a>
-                                                <form action="" method="post">
-                                                    <input type="hidden" name="employeeID" value="${e.id}">
+                                                <a href="${pageContext.request.contextPath}/admin/category?action=edit&categoryID=${b.id}"
+                                                   class="btn btn-primary">Detail</a>
+                                                <%--<form action="" method="post">
+                                                    <input type="hidden" name="productID" value="${b.id}">
                                                     <input type="hidden" name="action" value="delete">
-                                                    <input class="btn btn-danger margin-top-10 full-column-width" type="submit"
+                                                    <input class="btn btn-danger margin-top-10" type="submit"
                                                            value="Delete"
-                                                           onclick="if (confirm('Bạn có chắc chắn muốn xóa nhân viên này?')) { form.action='${pageContext.request.contextPath}/admin/employee'; } else { return false; }"/>
-                                                </form>
+                                                           onclick="if (confirm('Bạn có chắc chắn muốn xóa món hàng này?')) { form.action='${pageContext.request.contextPath}/admin/book'; } else { return false; }"/>
+                                                </form>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>
