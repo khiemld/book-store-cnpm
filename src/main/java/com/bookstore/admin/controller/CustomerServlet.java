@@ -1,6 +1,6 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.business.CustomerBS;
+import com.bookstore.admin.service.CustomerService;
 import com.bookstore.dao.UserDAO;
 import com.bookstore.entity.User;
 
@@ -21,13 +21,13 @@ public class CustomerServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
 
-        List<User> userList = CustomerBS.getAll();
+        List<User> userList = CustomerService.getAll();
         request.setAttribute("customerList", userList);
 
-        User bestCustomerByPrice= CustomerBS.BestCustomerByPrice();
+        User bestCustomerByPrice= CustomerService.BestCustomerByPrice();
         request.setAttribute("bestCustomerByPrice", bestCustomerByPrice);
 
-        User BestCustomerByBooks= CustomerBS.BestCustomerByBooks();
+        User BestCustomerByBooks= CustomerService.BestCustomerByBooks();
         request.setAttribute("BestCustomerByBooks", BestCustomerByBooks);
         // Lấy action của người dùng
         String action = request.getParameter("action");
@@ -56,7 +56,7 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<User> userList = CustomerBS.getAll();
+        List<User> userList = CustomerService.getAll();
         request.setAttribute("customerList", userList);
 //      Thêm tiếng việt
         request.setCharacterEncoding("utf-8");
@@ -137,10 +137,10 @@ public class CustomerServlet extends HttpServlet {
 
 //            Kiểm tra dữ liệu đầu vào đang được lưu trong book
 //            Nêu dữ liệu chưa hợp lệ
-            if (!"OK".equals(CustomerBS.CheckInputData(user))) {
+            if (!"OK".equals(CustomerService.CheckInputData(user))) {
                 request.setAttribute("customer", user);
                 request.setAttribute("action", "insert");
-                request.setAttribute("message", CustomerBS.CheckInputData(user));
+                request.setAttribute("message", CustomerService.CheckInputData(user));
                 request.getRequestDispatcher("/admin/customer-form.jsp").forward(request, response);
             }
 //            Nếu dữ liệu hợp lệ
@@ -152,13 +152,13 @@ public class CustomerServlet extends HttpServlet {
                     request.setAttribute("customer", user);
 //                  Kiểm tra xem một số thông tin phải là unique
 //                  Nếu số điện thoại đã tồn tại
-                    if (!"OK".equals(CustomerBS.CheckPhoneAvailable(user))) {
-                        request.setAttribute("message", CustomerBS.CheckPhoneAvailable(user));
+                    if (!"OK".equals(CustomerService.CheckPhoneAvailable(user))) {
+                        request.setAttribute("message", CustomerService.CheckPhoneAvailable(user));
                         request.getRequestDispatcher("/admin/customer-form.jsp").forward(request, response);
                     }
 //                    Nếu email đã tồn tại
-                    else if(!"OK".equals(CustomerBS.CheckEmailAvailable(user))){
-                        request.setAttribute("message", CustomerBS.CheckPhoneAvailable(user));
+                    else if(!"OK".equals(CustomerService.CheckEmailAvailable(user))){
+                        request.setAttribute("message", CustomerService.CheckPhoneAvailable(user));
                         request.getRequestDispatcher("/admin/customer-form.jsp").forward(request, response);
                     }
 //                  Nếu email và điện thoại là mới
@@ -166,7 +166,7 @@ public class CustomerServlet extends HttpServlet {
                         UserDAO.save(user);
                         String message = new String("Vừa thêm khách hàng <b>" + user.getName() + "</b>");
                         request.setAttribute("message", message);
-                        List<User> customerList = CustomerBS.getAll();
+                        List<User> customerList = CustomerService.getAll();
                         request.setAttribute("customerList", customerList);
                         request.getRequestDispatcher("/admin/customer.jsp").forward(request, response);
                     }
@@ -175,7 +175,7 @@ public class CustomerServlet extends HttpServlet {
                 else {
                     String message = new String("Vừa xem thông tin khách hàng <b>" + user.getName() + "</b>");
                     request.setAttribute("message", message);
-                    List<User> customerList = CustomerBS.getAll();
+                    List<User> customerList = CustomerService.getAll();
                     request.setAttribute("customerList", customerList);
                     request.getRequestDispatcher("/admin/customer.jsp").forward(request, response);
                 }

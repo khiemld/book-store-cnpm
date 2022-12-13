@@ -1,4 +1,4 @@
-package com.bookstore.admin.business;
+package com.bookstore.admin.service;
 
 import com.bookstore.entity.Order;
 
@@ -6,14 +6,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-public class OrderBS {
-    public static List<OrderStatusBS> statusList() {
-        List<OrderStatusBS> statuses = new ArrayList<>();
-        OrderStatusBS st1 = new OrderStatusBS(1, "Chờ xác nhận");
-        OrderStatusBS st2 = new OrderStatusBS(2, "Chờ lấy hàng");
-        OrderStatusBS st3 = new OrderStatusBS(3, "Đang giao");
-        OrderStatusBS st4 = new OrderStatusBS(4, "Đã giao");
-        OrderStatusBS st5 = new OrderStatusBS(5, "Đã hủy");
+public class OrderService {
+    public static List<OrderStatusService> statusList() {
+        List<OrderStatusService> statuses = new ArrayList<>();
+        OrderStatusService st1 = new OrderStatusService(1, "Chờ xác nhận");
+        OrderStatusService st2 = new OrderStatusService(2, "Chờ lấy hàng");
+        OrderStatusService st3 = new OrderStatusService(3, "Đang giao");
+        OrderStatusService st4 = new OrderStatusService(4, "Đã giao");
+        OrderStatusService st5 = new OrderStatusService(5, "Đã hủy");
         statuses.add(st1);
         statuses.add(st2);
         statuses.add(st3);
@@ -48,9 +48,9 @@ public class OrderBS {
         return newdt;
     }
 
-    public static OrderStatusBS findStatusByID(int id) {
-        OrderStatusBS selectedStatus = null;
-        for (OrderStatusBS status : statusList()) {
+    public static OrderStatusService findStatusByID(int id) {
+        OrderStatusService selectedStatus = null;
+        for (OrderStatusService status : statusList()) {
             if (status.getId() == id) {
                 selectedStatus = status;
             }

@@ -1,4 +1,4 @@
-package com.bookstore.admin.business;
+package com.bookstore.admin.service;
 
 import com.bookstore.dao.ProductDAO;
 import com.bookstore.entity.OrderItem;
@@ -7,7 +7,7 @@ import com.bookstore.entity.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderItemBS {
+public class OrderItemService {
     public static List<OrderItem> finalOrderItemList(List<OrderItem> itemList) {
         List<OrderItem> finalList = new ArrayList<>();
         for (OrderItem item : itemList) {

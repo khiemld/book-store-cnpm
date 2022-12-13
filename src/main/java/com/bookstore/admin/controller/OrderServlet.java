@@ -1,8 +1,8 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.business.OrderBS;
-import com.bookstore.admin.business.OrderItemBS;
-import com.bookstore.admin.business.OrderStatusBS;
+import com.bookstore.admin.service.OrderService;
+import com.bookstore.admin.service.OrderItemService;
+import com.bookstore.admin.service.OrderStatusService;
 import com.bookstore.dao.*;
 import com.bookstore.entity.*;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class OrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<OrderStatusBS> statusList = OrderBS.statusList();
+        List<OrderStatusService> statusList = OrderService.statusList();
         request.setAttribute("statusList", statusList);
 
         List<Order> orderList = OrderDAO.getAll();
@@ -61,7 +61,7 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<OrderStatusBS> statusList = OrderBS.statusList();
+        List<OrderStatusService> statusList = OrderService.statusList();
         request.setAttribute("statusList", statusList);
 
         List<Order> orderList = OrderDAO.getAll();
@@ -117,8 +117,8 @@ public class OrderServlet extends HttpServlet {
 
 //        Lấy id của status được truyền xuống nè
         String sID = request.getParameter("sID");
-        OrderStatusBS selectedStatus = new OrderStatusBS();
-        List<OrderStatusBS> statusList = OrderBS.statusList();
+        OrderStatusService selectedStatus = new OrderStatusService();
+        List<OrderStatusService> statusList = OrderService.statusList();
         request.setAttribute("statusList", statusList);
 
         List<Order> waitingConfirmList = OrderDAO.findByStatus(1);
@@ -139,7 +139,7 @@ public class OrderServlet extends HttpServlet {
 //            request.setAttribute("total",totalBook);
             request.getRequestDispatcher("/admin/order.jsp").forward(request, response);
         } else {
-            selectedStatus = OrderBS.findStatusByID(Integer.parseInt(sID));
+            selectedStatus = OrderService.findStatusByID(Integer.parseInt(sID));
             List<Order> orderList = OrderDAO.findByStatus(Integer.parseInt(sID));
             request.setAttribute("orderList", orderList);
             request.setAttribute("status", selectedStatus);
@@ -166,7 +166,7 @@ public class OrderServlet extends HttpServlet {
         User employee = UserDAO.find(selectedOrder.getIdSeller());
         request.setAttribute("employee", employee);
 
-        List<OrderStatusBS> statusList = OrderBS.statusList();
+        List<OrderStatusService> statusList = OrderService.statusList();
         request.setAttribute("statusList", statusList);
 
         List<PayMethod> paymethodList = PaymentDAO.getAll();
@@ -175,7 +175,7 @@ public class OrderServlet extends HttpServlet {
         List<Delivery> deliveryList = DeliveryDAO.getAll();
         request.setAttribute("deliveryList", deliveryList);
 
-        List<OrderItem> orderItemList = OrderItemBS.finalOrderItemList(OrderItemDAO.orderItemList(Integer.parseInt(oID)));
+        List<OrderItem> orderItemList = OrderItemService.finalOrderItemList(OrderItemDAO.orderItemList(Integer.parseInt(oID)));
         request.setAttribute("orderItemList", orderItemList);
         request.getRequestDispatcher("/admin/order-form.jsp").forward(request, response);
     }
@@ -214,7 +214,7 @@ public class OrderServlet extends HttpServlet {
                 User employee = UserDAO.find(order.getIdSeller());
                 request.setAttribute("employee", employee);
 
-                List<OrderStatusBS> statusList = OrderBS.statusList();
+                List<OrderStatusService> statusList = OrderService.statusList();
                 request.setAttribute("statusList", statusList);
 
                 List<PayMethod> paymethodList = PaymentDAO.getAll();
@@ -223,7 +223,7 @@ public class OrderServlet extends HttpServlet {
                 List<Delivery> deliveryList = DeliveryDAO.getAll();
                 request.setAttribute("deliveryList", deliveryList);
 
-                List<OrderItem> orderItemList = OrderItemBS.finalOrderItemList(OrderItemDAO.orderItemList(Integer.parseInt(oID)));
+                List<OrderItem> orderItemList = OrderItemService.finalOrderItemList(OrderItemDAO.orderItemList(Integer.parseInt(oID)));
                 request.setAttribute("orderItemList", orderItemList);
 
                 request.setAttribute("message", "Ngày nhận hàng chưa hợp lý! <b>Vui lòng chọn lại ngày nhận hàng dự kiến</b>");

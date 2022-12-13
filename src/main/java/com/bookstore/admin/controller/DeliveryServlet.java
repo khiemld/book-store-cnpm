@@ -1,6 +1,6 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.business.DeliveryBS;
+import com.bookstore.admin.service.DeliveryService;
 import com.bookstore.dao.DeliveryDAO;
 import com.bookstore.dao.PaymentDAO;
 import com.bookstore.entity.Delivery;
@@ -127,8 +127,8 @@ public class DeliveryServlet extends HttpServlet {
                 request.setAttribute("delivery", delivery);
 //                  Kiểm tra xem một số thông tin phải là unique
 //              Nếu số tên đã tồn tại
-                if (!"OK".equals(DeliveryBS.CheckInputData(delivery))) {
-                    request.setAttribute("message", DeliveryBS.CheckInputData(delivery));
+                if (!"OK".equals(DeliveryService.CheckInputData(delivery))) {
+                    request.setAttribute("message", DeliveryService.CheckInputData(delivery));
                     request.getRequestDispatcher("/admin/delivery-form.jsp").forward(request, response);
                 }
 //              Nếu là tên mới

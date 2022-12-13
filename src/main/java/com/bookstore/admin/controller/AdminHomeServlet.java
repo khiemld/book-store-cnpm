@@ -1,8 +1,8 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.business.CustomerBS;
-import com.bookstore.admin.business.EmployeeBS;
-import com.bookstore.admin.business.ProductBS;
+import com.bookstore.admin.service.CustomerService;
+import com.bookstore.admin.service.EmployeeService;
+import com.bookstore.admin.service.ProductService;
 import com.bookstore.dao.OrderDAO;
 import com.bookstore.dao.ProductDAO;
 import  com.bookstore.entity.*;
@@ -24,10 +24,10 @@ public class AdminHomeServlet extends HttpServlet {
         List<Product> bookList = ProductDAO.getAll();
         request.setAttribute("bookList", bookList);
 
-        List<User> userList = CustomerBS.getAll();
+        List<User> userList = CustomerService.getAll();
         request.setAttribute("customerList", userList);
 
-        List<User> employeeList = EmployeeBS.getAll();
+        List<User> employeeList = EmployeeService.getAll();
         request.setAttribute("employeeList", employeeList);
 
         List<Order> orderList = OrderDAO.get5LastestOrder();
@@ -36,7 +36,7 @@ public class AdminHomeServlet extends HttpServlet {
         List<Product> book5List = ProductDAO.get5LastestProduct();
         request.setAttribute("book5List", book5List);
 
-        Product bestSellerBook= ProductBS.BestSellerBook();
+        Product bestSellerBook= ProductService.BestSellerBook();
         request.setAttribute("bestSellerBook", bestSellerBook);
         // Tổng số bán trong ngày
         // Thu nhập trong tháng

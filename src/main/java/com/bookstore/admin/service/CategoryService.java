@@ -1,4 +1,4 @@
-package com.bookstore.admin.business;
+package com.bookstore.admin.service;
 
 
 
@@ -7,7 +7,7 @@ import com.bookstore.entity.Category;
 
 import java.util.List;
 
-public class CategoryBS {
+public class CategoryService {
     public static String CheckNameAvailable(Category category) {
         List<Category> foundedList = CategoryDAO.findByName(category.getName());
         if (foundedList.size() >= 1) {

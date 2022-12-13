@@ -1,6 +1,6 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.business.EmployeeBS;
+import com.bookstore.admin.service.EmployeeService;
 import com.bookstore.dao.UserDAO;
 import com.bookstore.entity.User;
 
@@ -20,13 +20,13 @@ public class EmployeeServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
 
-        List<User> employeeList = EmployeeBS.getAll();
+        List<User> employeeList = EmployeeService.getAll();
         request.setAttribute("employeeList", employeeList);
 
-        User BestEmployeeByPrice = EmployeeBS.BestEmployeeByPrice();
+        User BestEmployeeByPrice = EmployeeService.BestEmployeeByPrice();
         request.setAttribute("BestEmployeeByPrice", BestEmployeeByPrice);
 
-        User BestEmployeeByBooks = EmployeeBS.BestEmployeeByBooks();
+        User BestEmployeeByBooks = EmployeeService.BestEmployeeByBooks();
         request.setAttribute("BestEmployeeByBooks", BestEmployeeByBooks);
 
         // Lấy action của người dùng
@@ -58,13 +58,13 @@ public class EmployeeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-        List<User> employeeList = EmployeeBS.getAll();
+        List<User> employeeList = EmployeeService.getAll();
         request.setAttribute("employeeList", employeeList);
 
-        User BestEmployeeByPrice = EmployeeBS.BestEmployeeByPrice();
+        User BestEmployeeByPrice = EmployeeService.BestEmployeeByPrice();
         request.setAttribute("BestEmployeeByPrice", BestEmployeeByPrice);
 
-        User BestEmployeeByBooks = EmployeeBS.BestEmployeeByBooks();
+        User BestEmployeeByBooks = EmployeeService.BestEmployeeByBooks();
         request.setAttribute("BestEmployeeByBooks", BestEmployeeByBooks);
         // Lấy action của người dùng
         String action = request.getParameter("action");
@@ -145,9 +145,9 @@ public class EmployeeServlet extends HttpServlet {
 
 //            Kiểm tra dữ liệu đầu vào đang được lưu trong book
 //            Nêu dữ liệu chưa hợp lệ
-            if (!"OK".equals(EmployeeBS.CheckInputData(user))) {
+            if (!"OK".equals(EmployeeService.CheckInputData(user))) {
                 request.setAttribute("employee", user);
-                request.setAttribute("message", EmployeeBS.CheckInputData(user));
+                request.setAttribute("message", EmployeeService.CheckInputData(user));
                 request.getRequestDispatcher("/admin/employee-form.jsp").forward(request, response);
             }
 //            Nếu dữ liệu hợp lệ
@@ -157,15 +157,15 @@ public class EmployeeServlet extends HttpServlet {
                 if (user.getId() == 0) {
 //                  Kiểm tra xem một số thông tin phải là unique
 //                  Nếu số điện thoại đã tồn tại
-                    if (!"OK".equals(EmployeeBS.CheckPhoneAvailable(user))) {
+                    if (!"OK".equals(EmployeeService.CheckPhoneAvailable(user))) {
                         request.setAttribute("employee", user);
-                        request.setAttribute("message", EmployeeBS.CheckPhoneAvailable(user));
+                        request.setAttribute("message", EmployeeService.CheckPhoneAvailable(user));
                         request.getRequestDispatcher("/admin/employee-form.jsp").forward(request, response);
                     }
 //                    Nếu email đã tồn tại
-                    else if (!"OK".equals(EmployeeBS.CheckEmailAvailable(user))) {
+                    else if (!"OK".equals(EmployeeService.CheckEmailAvailable(user))) {
                         request.setAttribute("employee", user);
-                        request.setAttribute("message", EmployeeBS.CheckEmailAvailable(user));
+                        request.setAttribute("message", EmployeeService.CheckEmailAvailable(user));
                         request.getRequestDispatcher("/admin/employee-form.jsp").forward(request, response);
                     }
 //                  Nếu email và điện thoại là mới
@@ -173,26 +173,26 @@ public class EmployeeServlet extends HttpServlet {
                         UserDAO.save(user);
                         String message = new String("Vừa thêm nhân viên <b>" + user.getName() + "</b>");
                         request.setAttribute("message", message);
-                        List<User> employeeList = EmployeeBS.getAll();
+                        List<User> employeeList = EmployeeService.getAll();
                         request.setAttribute("employeeList", employeeList);
                         request.getRequestDispatcher("/admin/employee.jsp").forward(request, response);
                     }
                 }
 //                Đang cập nhật sách
                 else {
-                    if(!"OK".equals(EmployeeBS.CheckEmailUpdateAvailable(user))) {
+                    if(!"OK".equals(EmployeeService.CheckEmailUpdateAvailable(user))) {
                         request.setAttribute("employee", user);
-                        request.setAttribute("message", EmployeeBS.CheckEmailUpdateAvailable(user));
+                        request.setAttribute("message", EmployeeService.CheckEmailUpdateAvailable(user));
                         request.getRequestDispatcher("/admin/employee-form.jsp").forward(request, response);
-                    } else if (!"OK".equals(EmployeeBS.CheckPhoneUpdateAvailable(user))) {
+                    } else if (!"OK".equals(EmployeeService.CheckPhoneUpdateAvailable(user))) {
                         request.setAttribute("employee", user);
-                        request.setAttribute("message", EmployeeBS.CheckPhoneUpdateAvailable(user));
+                        request.setAttribute("message", EmployeeService.CheckPhoneUpdateAvailable(user));
                         request.getRequestDispatcher("/admin/employee-form.jsp").forward(request, response);
                     } else {
                         UserDAO.update(user);
                         String message = new String("Vừa cập nhật nhân viên <b>" + user.getName() + "</b>");
                         request.setAttribute("message", message);
-                        List<User> employeeList = EmployeeBS.getAll();
+                        List<User> employeeList = EmployeeService.getAll();
                         request.setAttribute("employeeList", employeeList);
                         request.getRequestDispatcher("/admin/employee.jsp").forward(request, response);
                     }
@@ -210,7 +210,7 @@ public class EmployeeServlet extends HttpServlet {
 //        Lấy product có id tương ứng ra
         User selectedUser = UserDAO.find(Integer.parseInt(eID));
         String message;
-        if (selectedUser != null && EmployeeBS.totalOrder(selectedUser) == 0) {
+        if (selectedUser != null && EmployeeService.totalOrder(selectedUser) == 0) {
             message = new String("Vừa xóa nhân viên <b>" + selectedUser.getName() + "</b>");
             selectedUser.setActive(false);
             UserDAO.update(selectedUser);
@@ -219,13 +219,13 @@ public class EmployeeServlet extends HttpServlet {
         }
         request.setAttribute("message", message);
 
-        List<User> employeeList = EmployeeBS.getAll();
+        List<User> employeeList = EmployeeService.getAll();
         request.setAttribute("employeeList", employeeList);
 
-        User BestEmployeeByPrice = EmployeeBS.BestEmployeeByPrice();
+        User BestEmployeeByPrice = EmployeeService.BestEmployeeByPrice();
         request.setAttribute("BestEmployeeByPrice", BestEmployeeByPrice);
 
-        User BestEmployeeByBooks = EmployeeBS.BestEmployeeByBooks();
+        User BestEmployeeByBooks = EmployeeService.BestEmployeeByBooks();
         request.setAttribute("BestEmployeeByBooks", BestEmployeeByBooks);
 
         request.getRequestDispatcher("/admin/employee.jsp").forward(request, response);

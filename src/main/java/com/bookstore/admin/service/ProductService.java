@@ -1,4 +1,4 @@
-package com.bookstore.admin.business;
+package com.bookstore.admin.service;
 
 import com.bookstore.dao.OrderDAO;
 import com.bookstore.dao.OrderItemDAO;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ProductBS {
+public class ProductService {
     public static String CheckInputData(Product book) {
         if (book.getOriginalPrice() < 0) {
             return "Vui lòng nhập <b>số tiền nhập dương</b>!";

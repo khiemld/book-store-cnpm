@@ -1,10 +1,10 @@
-package com.bookstore.admin.business;
+package com.bookstore.admin.service;
 
 import com.bookstore.dao.PaymentDAO;
 import  com.bookstore.entity.*;
 import java.util.List;
 
-public class PaymethodBS {
+public class PaymethodService {
     public static String CheckNameAvailable(PayMethod paymethod) {
         List<PayMethod> foundedList = PaymentDAO.find(paymethod.getName());
         if (foundedList.size() >= 1) {

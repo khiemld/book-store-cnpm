@@ -1,6 +1,6 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.business.PaymethodBS;
+import com.bookstore.admin.service.PaymethodService;
 import com.bookstore.dao.PaymentDAO;
 import com.bookstore.entity.PayMethod;
 
@@ -123,8 +123,8 @@ public class PaymethodServlet extends HttpServlet {
                 request.setAttribute("paymethod", paymethod);
 //                  Kiểm tra xem một số thông tin phải là unique
 //              Nếu số tên đã tồn tại
-                if (!"OK".equals(PaymethodBS.CheckNameAvailable(paymethod))) {
-                    request.setAttribute("message", PaymethodBS.CheckNameAvailable(paymethod));
+                if (!"OK".equals(PaymethodService.CheckNameAvailable(paymethod))) {
+                    request.setAttribute("message", PaymethodService.CheckNameAvailable(paymethod));
                     request.getRequestDispatcher("/admin/paymethod-form.jsp").forward(request, response);
                 }
 //              Nếu là tên mới

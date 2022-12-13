@@ -1,6 +1,6 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.business.ProductBS;
+import com.bookstore.admin.service.ProductService;
 import com.bookstore.dao.CategoryDAO;
 import com.bookstore.dao.ProductDAO;
 import com.bookstore.entity.Category;
@@ -20,10 +20,10 @@ public class BookServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Product> bookList = ProductDAO.getAll();
         List<Category> categoryList = CategoryDAO.getAll();
-        int totalBook= ProductBS.totalBook(bookList);
+        int totalBook= ProductService.totalBook(bookList);
         request.setAttribute("total",totalBook);
 
-        int sellBook= ProductBS.sellBook(bookList);
+        int sellBook= ProductService.sellBook(bookList);
         request.setAttribute("sell",sellBook);
 
         request.setCharacterEncoding("utf-8");
@@ -56,7 +56,7 @@ public class BookServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Product> bookList = ProductDAO.getAll();
-        int totalBook= ProductBS.totalBook(bookList);
+        int totalBook= ProductService.totalBook(bookList);
         request.setAttribute("total",totalBook);
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
@@ -133,11 +133,11 @@ public class BookServlet extends HttpServlet {
 
 //            Kiểm tra dữ liệu đầu vào đang được lưu trong book
 //            Nếu dữ liệu chưa hợp lệ
-            if (!"OK".equals(ProductBS.CheckInputData(book))) {
+            if (!"OK".equals(ProductService.CheckInputData(book))) {
                 categoryList = CategoryDAO.getAll();
                 request.setAttribute("book", book);
                 request.setAttribute("categoryList", categoryList);
-                request.setAttribute("message", ProductBS.CheckInputData(book));
+                request.setAttribute("message", ProductService.CheckInputData(book));
                 request.getRequestDispatcher("/admin/book-form.jsp").forward(request, response);
             }
 //            Nếu dữ liệu hợp lệ
@@ -147,11 +147,11 @@ public class BookServlet extends HttpServlet {
                 if (book.getId() == 0) {
 //                  Kiểm tra xem tên có chưa
 //                  Nếu tên sách đã tồn tại
-                    if (!"OK".equals(ProductBS.CheckNameAvailable(book))) {
+                    if (!"OK".equals(ProductService.CheckNameAvailable(book))) {
                         categoryList = CategoryDAO.getAll();
                         request.setAttribute("book", book);
                         request.setAttribute("categoryList", categoryList);
-                        request.setAttribute("message", ProductBS.CheckNameAvailable(book));
+                        request.setAttribute("message", ProductService.CheckNameAvailable(book));
                         request.getRequestDispatcher("/admin/book-form.jsp").forward(request, response);
                     }
 //                  Nếu tên chưa tồn tại
@@ -160,7 +160,7 @@ public class BookServlet extends HttpServlet {
                         String message = new String("Vừa thêm sách <b>" + book.getName() + "</b>");
                         request.setAttribute("message", message);
                         List<Product> bookList = ProductDAO.getAll();
-                        int totalBook= ProductBS.totalBook(bookList);
+                        int totalBook= ProductService.totalBook(bookList);
                         request.setAttribute("total",totalBook);
                         request.setAttribute("bookList", bookList);
                         request.getRequestDispatcher("/admin/book.jsp").forward(request, response);
@@ -168,11 +168,11 @@ public class BookServlet extends HttpServlet {
                 }
 //                Đang cập nhật sách
                 else {
-                    if (!"OK".equals(ProductBS.CheckNameUpdateAvailable(book))) {
+                    if (!"OK".equals(ProductService.CheckNameUpdateAvailable(book))) {
                         categoryList = CategoryDAO.getAll();
                         request.setAttribute("book", book);
                         request.setAttribute("categoryList", categoryList);
-                        request.setAttribute("message", ProductBS.CheckNameUpdateAvailable(book));
+                        request.setAttribute("message", ProductService.CheckNameUpdateAvailable(book));
                         request.getRequestDispatcher("/admin/book-form.jsp").forward(request, response);
                     } else {
                         ProductDAO.update(book);
@@ -180,7 +180,7 @@ public class BookServlet extends HttpServlet {
                         request.setAttribute("message", message);
                         List<Product> bookList = ProductDAO.getAll();
                         request.setAttribute("bookList", bookList);
-                        int totalBook = ProductBS.totalBook(bookList);
+                        int totalBook = ProductService.totalBook(bookList);
                         request.setAttribute("total", totalBook);
                         request.getRequestDispatcher("/admin/book.jsp").forward(request, response);
                     }
@@ -224,7 +224,7 @@ public class BookServlet extends HttpServlet {
         request.setAttribute("message", message);
         List<Product> bookList = ProductDAO.getAll();
         request.setAttribute("bookList", bookList);
-        int totalBook= ProductBS.totalBook(bookList);
+        int totalBook= ProductService.totalBook(bookList);
         request.setAttribute("total",totalBook);
         List<Category> categoryList = CategoryDAO.getAll();
         request.setAttribute("categoryList", categoryList);
@@ -249,9 +249,9 @@ public class BookServlet extends HttpServlet {
             request.setAttribute("bookList", bookList);
             selectedCategory.setName("Toàn bộ sách");
             request.setAttribute("category", selectedCategory);
-            int totalBook= ProductBS.totalBook(bookList);
+            int totalBook= ProductService.totalBook(bookList);
             request.setAttribute("total",totalBook);
-            int sellBook= ProductBS.sellBook(bookList);
+            int sellBook= ProductService.sellBook(bookList);
             request.setAttribute("sell",sellBook);
             request.getRequestDispatcher("/admin/book.jsp").forward(request, response);
         }
@@ -260,9 +260,9 @@ public class BookServlet extends HttpServlet {
             List<Product> bookList = ProductDAO.getProductByCategoryID(Integer.parseInt(cID));
             request.setAttribute("bookList", bookList);
             request.setAttribute("category", selectedCategory);
-            int totalBook= ProductBS.totalBook(bookList);
+            int totalBook= ProductService.totalBook(bookList);
             request.setAttribute("total",totalBook);
-            int sellBook= ProductBS.sellBook(bookList);
+            int sellBook= ProductService.sellBook(bookList);
             request.setAttribute("sell",sellBook);
             request.getRequestDispatcher("/admin/book.jsp").forward(request, response);
         }

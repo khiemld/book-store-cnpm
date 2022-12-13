@@ -1,4 +1,4 @@
-package com.bookstore.admin.business;
+package com.bookstore.admin.service;
 
 import com.bookstore.dao.OrderDAO;
 import com.bookstore.dao.OrderItemDAO;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class EmployeeBS {
+public class EmployeeService {
     public static List<User> getAll() {
         List<User> employees = UserDAO.findByRole(2); // 2 - employee
         return employees;

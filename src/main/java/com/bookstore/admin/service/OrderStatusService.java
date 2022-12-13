@@ -1,6 +1,6 @@
-package com.bookstore.admin.business;
+package com.bookstore.admin.service;
 
-public class OrderStatusBS {
+public class OrderStatusService {
     private int id;
     private String name;
 
@@ -20,10 +20,10 @@ public class OrderStatusBS {
         this.name = name;
     }
 
-    public OrderStatusBS() {
+    public OrderStatusService() {
     }
 
-    public OrderStatusBS(int id, String name) {
+    public OrderStatusService(int id, String name) {
         this.id = id;
         this.name = name;
     }

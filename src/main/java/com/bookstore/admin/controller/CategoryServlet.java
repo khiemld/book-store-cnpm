@@ -2,7 +2,7 @@ package com.bookstore.admin.controller;
 
 
 
-import com.bookstore.admin.business.CategoryBS;
+import com.bookstore.admin.service.CategoryService;
 import com.bookstore.dao.CategoryDAO;
 import com.bookstore.entity.Category;
 
@@ -127,8 +127,8 @@ public class CategoryServlet extends HttpServlet {
                 request.setAttribute("category", category);
 //                  Kiểm tra xem một số thông tin phải là unique
 //              Nếu số tên đã tồn tại
-                if (!"OK".equals(CategoryBS.CheckNameAvailable(category))) {
-                    request.setAttribute("message", CategoryBS.CheckNameAvailable(category));
+                if (!"OK".equals(CategoryService.CheckNameAvailable(category))) {
+                    request.setAttribute("message", CategoryService.CheckNameAvailable(category));
                     request.getRequestDispatcher("/admin/category-form.jsp").forward(request, response);
                 }
 //              Nếu là tên mới
