@@ -37,6 +37,15 @@ public class ProductBS {
         return "OK";
     }
 
+    public static String CheckNameUpdateAvailable(Product book) {
+        /*List<Product> foundedList = ProductDAO.searchByname(book.getName());*/
+        List<Product> foundedList = ProductDAO.searchBynameandId(book.getName(), book.getId());
+        if (foundedList.size() == 1) {
+            return "Tên sách <b>đã tồn tại</b>! Vui lòng nhập tên khác";
+        }
+        return "OK";
+    }
+
     public static int totalBook(List<Product> books) {
         int total = 0;
         for (Product book : books) {

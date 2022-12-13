@@ -280,12 +280,13 @@
 
 
                     <!-- Add button -->
+                    <c:if test="${sessionScope.admin.getIsRole() == 1}">
                     <form action="${pageContext.request.contextPath}/admin/delivery" method="get">
                         <input type="hidden" name="action" value="insert">
                         <input type="submit" class="btn btn-success" value="Add method">
                         <%--<a href="/admin/book?action=insert" class="btn btn-success">Add book</a>--%>
                     </form>
-
+                    </c:if>
                     <!-- Book List -->
                     <div class="col-12">
                         <div class="card overflow-auto margin-top-30">

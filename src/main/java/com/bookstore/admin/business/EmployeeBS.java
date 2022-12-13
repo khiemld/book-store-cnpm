@@ -44,6 +44,16 @@ public class EmployeeBS {
         return "OK";
     }
 
+    public static String CheckPhoneUpdateAvailable(User user) {
+        /*List<User> foundedList = UserDAO.findByPhone(user.getPhone());*/
+        List<User> foundedList = UserDAO.findByPhoneandId(user.getPhone(), user.getId());
+        if (foundedList.size() == 1) {
+            return "<b>SĐT đã tồn tại</b>! Vui lòng nhập SĐT khác";
+        }
+        return "OK";
+    }
+
+
     public static String CheckEmailAvailable(User user) {
         List<User> foundedList = UserDAO.findListUserByEmail(user.getEmail());
         if (foundedList.size() == 1) {
@@ -52,6 +62,14 @@ public class EmployeeBS {
         return "OK";
     }
 
+    public static String CheckEmailUpdateAvailable(User user) {
+        /*List<User> foundedList = UserDAO.findListUserByEmail(user.getEmail());*/
+        List<User> foundedList = UserDAO.findListUserByEmailandId(user.getEmail(), user.getId());
+        if (foundedList.size() == 1) {
+            return "<b>Email đã tồn tại</b>! Vui lòng nhập email khác";
+        }
+        return "OK";
+    }
     public static User BestEmployeeByPrice() {
         class Temp implements Comparable<Temp> {
             public int id;

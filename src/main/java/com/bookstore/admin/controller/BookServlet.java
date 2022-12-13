@@ -168,14 +168,22 @@ public class BookServlet extends HttpServlet {
                 }
 //                Đang cập nhật sách
                 else {
-                    ProductDAO.update(book);
-                    String message = new String("Vừa cập nhật sách <b>" + book.getName() + "</b>");
-                    request.setAttribute("message", message);
-                    List<Product> bookList = ProductDAO.getAll();
-                    request.setAttribute("bookList", bookList);
-                    int totalBook= ProductBS.totalBook(bookList);
-                    request.setAttribute("total",totalBook);
-                    request.getRequestDispatcher("/admin/book.jsp").forward(request, response);
+                    if (!"OK".equals(ProductBS.CheckNameUpdateAvailable(book))) {
+                        categoryList = CategoryDAO.getAll();
+                        request.setAttribute("book", book);
+                        request.setAttribute("categoryList", categoryList);
+                        request.setAttribute("message", ProductBS.CheckNameUpdateAvailable(book));
+                        request.getRequestDispatcher("/admin/book-form.jsp").forward(request, response);
+                    } else {
+                        ProductDAO.update(book);
+                        String message = new String("Vừa cập nhật sách <b>" + book.getName() + "</b>");
+                        request.setAttribute("message", message);
+                        List<Product> bookList = ProductDAO.getAll();
+                        request.setAttribute("bookList", bookList);
+                        int totalBook = ProductBS.totalBook(bookList);
+                        request.setAttribute("total", totalBook);
+                        request.getRequestDispatcher("/admin/book.jsp").forward(request, response);
+                    }
                 }
             }
         }
