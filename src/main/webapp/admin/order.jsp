@@ -1,4 +1,4 @@
-<%--
+<%--<%--
   Created by IntelliJ IDEA.
   User: Trường Giang
   Date: 03-Dec-22
@@ -87,7 +87,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <a href="${pageContext.request.contextPath}/admin" class="logo d-flex align-items-center">
             <img src="${pageContext.request.contextPath}/admin/assets/img/logo.png" alt="">
-            <span class="d-none d-lg-block">Giấy Bookstore</span>
+            <span class="d-none d-lg-block">Comics Bookstore</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->

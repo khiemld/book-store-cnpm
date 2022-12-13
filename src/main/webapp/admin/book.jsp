@@ -83,7 +83,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <a href="${pageContext.request.contextPath}/admin" class="logo d-flex align-items-center">
             <img src="${pageContext.request.contextPath}/admin/assets/img/logo.png" alt="">
-            <span class="d-none d-lg-block">Giấy Bookstore</span>
+            <span class="d-none d-lg-block">Comics Bookstore</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -356,7 +356,9 @@
                                         <th scope="col">Sale Price</th>
                                         <th scope="col">Describe</th>
                                         <th scope="col">Image</th>
+                                        <c:if test="${sessionScope.admin.getIsRole() == 1}">
                                         <th scope="col">Action</th>
+                                        </c:if>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -368,17 +370,20 @@
                                             <td>${b.salePrice}</td>
                                             <td class="desciption-column-witdh"><span>${b.discription}</span></td>
                                             <td><img alt="" class="img-rectangle" src="${b.image}"/></td>
-                                            <td class="action-column">
-                                                <a href="${pageContext.request.contextPath}/admin/book?action=edit&productID=${b.id}"
-                                                   class="btn btn-primary">Edit</a>
-                                                <form action="" method="post">
-                                                    <input type="hidden" name="productID" value="${b.id}">
-                                                    <input type="hidden" name="action" value="delete">
-                                                    <input class="btn btn-danger margin-top-10" type="submit"
-                                                           value="Delete"
-                                                           onclick="if (confirm('Bạn có chắc chắn muốn xóa món hàng này?')) { form.action='${pageContext.request.contextPath}/admin/book'; } else { return false; }"/>
-                                                </form>
-                                            </td>
+                                            <c:if test="${sessionScope.admin.getIsRole() == 1}">
+                                                <td class="action-column">
+                                                    <a href="${pageContext.request.contextPath}/admin/book?action=edit&productID=${b.id}"
+                                                       class="btn btn-primary">Edit</a>
+                                                    <form action="" method="post">
+                                                        <input type="hidden" name="productID" value="${b.id}">
+                                                        <input type="hidden" name="action" value="delete">
+                                                        <input class="btn btn-danger margin-top-10" type="submit"
+                                                               value="Delete"
+                                                               onclick="if (confirm('Bạn có chắc chắn muốn xóa món hàng này?')) { form.action='${pageContext.request.contextPath}/admin/book'; } else { return false; }"/>
+                                                    </form>
+                                                </td>
+                                            </c:if>
+
                                         </tr>
                                     </c:forEach>
                                     </tbody>
