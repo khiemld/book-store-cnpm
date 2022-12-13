@@ -14,6 +14,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link href="<c:url value = "/store/css/style.css" />" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -26,6 +27,12 @@
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
+                <c:if test="${not empty err}">
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            ${err}
+                    </div>
+                </c:if>
                 <table class="table table-striped">
                     <thead >
                         <tr>
@@ -66,7 +73,7 @@
                         <tr>
                             <td></td>
                             <td></td>
-                            <td><b>Temporary Cost</td>
+                            <td><b>Temporary Cost</b></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -83,7 +90,9 @@
         </div>
         <div class="col-sm-12 col-md-6 text-right">
             <input type="hidden" name="uid" value="${sessionScope.acc.id}">
-            <button type="submit" class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+            <c:if test="${size != 0}">
+                <button type="submit" class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+            </c:if>
         </div>
 
     </div>
@@ -116,6 +125,8 @@
 <script src="//code.jquery.com/jquery-3.2.1.slim.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

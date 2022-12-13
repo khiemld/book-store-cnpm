@@ -14,7 +14,9 @@
     <!-- CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+
     <link href="<c:url value = "/store/css/style.css" />" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -55,6 +57,12 @@
             <div class="card bg-light mb-3">
                 <div class="card-body">
                     ${detail.name}
+                        <c:if test="${not empty err}">
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    ${err}
+                            </div>
+                        </c:if>
                     <p class="price">
                         <fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${detail.salePrice}"/> đ
                     </p>
@@ -226,6 +234,9 @@
     });
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

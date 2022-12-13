@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix ="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,22 +23,22 @@
         <form action="processOrder" method="post">
             <label>
                 <span class="fname">Họ tên<span class="required">*</span></span>
-                <input type="text" name="name">
+                <input type="text" name="name" required>
             </label>
             <label>
                 <span class="fname">Địa chỉ<span class="required">*</span></span>
-                <input type="text" name="address">
+                <input type="text" name="address" required>
             </label>
             <label>
                 <span class="fname">Số điện thoại<span class="required">*</span></span>
-                <input type="text" name="phone">
+                <input type="text" name="phone" required>
             </label>
 
             <div class="payment">
                 <h3>Phương thức thanh toán</h3>
                 <c:forEach items="${listPay}" var="i">
                     <div>
-                        <input type="radio" name="payment" value="${i.id}"> ${i.name}
+                        <input type="radio" name="payment" value="${i.id}" checked> ${i.name}
                     </div>
                 </c:forEach>
             </div>
@@ -46,13 +47,13 @@
                 <h3>Phương thức giao hàng</h3>
                 <c:forEach items="${listDelivery}" var="i">
                     <div>
-                        <input type="radio" name="delivery" value="${i.id}"> ${i.name}
+                        <input type="radio" name="delivery" value="${i.id}" checked> ${i.name}
                     </div>
                 </c:forEach>
             </div>
 
             <input type="hidden" name="uid" value="${sessionScope.acc.id}">
-            <button type="submit">Place Order</button>
+            <button type="submit">Đặt hàng</button>
         </form>
         <div class="Yorder">
             <table>
@@ -62,12 +63,16 @@
                 <c:forEach items="${listItem}" var="i">
                     <tr>
                         <td>${i.product.name} x ${i.quantity}</td>
-                        <td>${i.price}</td>
+                        <td>
+                            <fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${i.price}"/> đ
+                        </td>
                     </tr>
                 </c:forEach>
                 <tr>
                     <td>Subtotal</td>
-                    <td>${total}</td>
+                    <td>
+                        <fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${total}"/> đ
+                    </td>
                 </tr>
             </table><br>
 
